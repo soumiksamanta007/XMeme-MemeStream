@@ -1,4 +1,5 @@
 const URL = "https://xmeme-memestream-app.herokuapp.com/memes";
+// const URL = "https://127.0.0.1:8081/memes";
 
 var memes = [];
 var editMemeID;
@@ -103,9 +104,6 @@ function postMeme() {
         xhttp.send(JSON.stringify({"name": name,
                                 "url": memeUrl,
                                 "caption": caption}));
-        
-        console.log(xhttp.status);
-        console.log(typeof(xhttp.status));
     }
 }
 

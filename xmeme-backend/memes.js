@@ -71,7 +71,7 @@ async function getMeme(entryID) {
 
 
 async function patchMeme(entryID, newUrl, newCaption) {
-    const sql = `UPDATE memes SET url = '${newUrl}', caption = '${newCaption}' WHERE id = UUID_TO_BIN('${entryID}')`;
+    const sql = `UPDATE memes SET url = '${newUrl}', caption = '${newCaption}' WHERE id = '${entryID}'`;
     return new Promise(function(resolve, reject) {
         db.all(sql, [],  (err, rows) => {
             if (err)
@@ -100,3 +100,11 @@ module.exports = {
     postMeme,
     patchMeme,
 }
+
+// const sql = "SELECT id, name, url, caption FROM memes ORDER BY dop DESC LIMIT 100";
+// // const sql = `UPDATE memes SET url = 'https://cdn.memes.com/up/70299851545116409/i/1612499230845.jpg', caption = 'newCaption' WHERE id = '4f383b39-255e-4699-b90f-1ec16e882bd5'`;
+// db.all(sql, [],  (err, rows, feilds) => {
+//     if (err)
+//         throw (err); 
+//     console.log(rows, feilds); // success
+// });  

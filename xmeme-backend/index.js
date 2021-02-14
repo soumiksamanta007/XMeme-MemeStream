@@ -19,7 +19,7 @@ app.use(cors());
 app.options("*", cors());
 app.use(bodyParser.json());
 
-const PORT = Number(process.env.PORT || 8080);
+const PORT = Number(process.env.PORT || 8081);
 
 /**
  * @swagger
