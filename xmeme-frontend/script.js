@@ -1,4 +1,4 @@
-const URL = "http://localhost:8081/memes";
+const URL = "https://xmeme-memestream-app.herokuapp.com/memes";
 
 var memes = [];
 var editMemeID;
@@ -99,7 +99,7 @@ function postMeme() {
                 alert("Failed to add meme! 🙁");
         };
         xhttp.open("POST", URL, true);
-        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify({"name": name,
                                 "url": memeUrl,
                                 "caption": caption}));

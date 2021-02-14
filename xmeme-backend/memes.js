@@ -1,107 +1,97 @@
-const mysql = require('mysql2');
+const sqlite3 = require('sqlite3');
 const dotenv = require('dotenv');
 const { v4: uuidv4 } = require('uuid');
 
 dotenv.config();
 
-var db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_DATABASE
-});
+const db = new sqlite3.Database('./db/memes.db');
 
 async function getMemes() {
-    const sql = "SELECT BIN_TO_UUID(id) AS id, name, url, caption FROM memes ORDER BY dop DESC LIMIT 100";
+    const sql = "SELECT id, name, url, caption FROM memes ORDER BY dop DESC LIMIT 100";
     return new Promise(function (resolve, reject) {
-        db.connect(function(err) {
+        db.all(sql, [], (err, rows) => {
             if (err) 
                 reject(err);
-            db.query(sql, function (err, result, fields) {
-                if (err)
-                    reject(err);
-                resolve(result);
-            });
+            resolve(rows);
         });
     })
+    .then(function(res) {
+        return res;
+    })
     .catch(err => {
-        const mysqlErrorList = Object.keys(HttpStatusCodes);
-        // convert mysql errors which are in the mysqlErrorList list to http status code
-        err.status = mysqlErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
+        const ErrorList = Object.keys(HttpStatusCodes);
+        // convert mysql errors which are in the ErrorList list to http status code
+        err.status = ErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
         return err;
     });
 }
 
-
 async function postMeme(entry) {
     var id = uuidv4();
-    const sql = `INSERT INTO memes (id, dop, name, caption, url) VALUES ( UUID_TO_BIN('${id}'), NOW(), '${entry['name']}', '${entry['caption']}', '${entry['url']}')`;
+    console.log(entry);
+    const sql = `INSERT INTO memes (id, dop, name, caption, url) VALUES ( '${id}', datetime('now'), '${entry['name']}', '${entry['caption']}', '${entry['url']}')`;
     return new Promise(function(resolve, reject) {
-        db.connect(function(err) {
+        db.all(sql, [],  (err, rows) => {
             if (err)
-                reject (err);            
-            db.query(sql, function (err, result) {
-                if (err) {
-                    reject(err);
-                }
-                resolve({"id": (id).toString()});
-            });
+                reject (err);
+            resolve({"id": (id).toString()});
         });
     })
+    .then(function(res) {
+        return res;
+    })
     .catch(err => {
-        const mysqlErrorList = Object.keys(HttpStatusCodes);
-        // convert mysql errors which are in the mysqlErrorList list to http status code
-        err.status = mysqlErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
+        const ErrorList = Object.keys(HttpStatusCodes);
+        // convert mysql errors which are in the ErrorList list to http status code
+        err.status = ErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
         return err;
     });
 }
 
 
 async function getMeme(entryID) {
-    const sql = `SELECT BIN_TO_UUID(id) AS id, name, url, caption FROM memes WHERE id = UUID_TO_BIN('${entryID}')`;
+    const sql = `SELECT id, name, url, caption FROM memes WHERE id = '${entryID}'`;
     return new Promise(function(resolve, reject) {
-        db.connect(function(err) {
+        db.all(sql, [],  (err, rows) => {
             if (err) 
                 reject (err);
-            db.query(sql, function (err, result, fields) {
-                if (err)
-                    reject (err);
-                resolve(result.length > 0 ? result[0] : {});
-            });
+            resolve(result.length > 0 ? result[0] : {});
         });
     })
+    .then(function(res) {
+        return res;
+    })
     .catch(err => {
-        const mysqlErrorList = Object.keys(HttpStatusCodes);
-        // convert mysql errors which are in the mysqlErrorList list to http status code
-        err.status = mysqlErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
+        const ErrorList = Object.keys(HttpStatusCodes);
+        // convert mysql errors which are in the ErrorList list to http status code
+        err.status = ErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
         return err;
     });
 }
 
+
 async function patchMeme(entryID, newUrl, newCaption) {
     const sql = `UPDATE memes SET url = '${newUrl}', caption = '${newCaption}' WHERE id = UUID_TO_BIN('${entryID}')`;
     return new Promise(function(resolve, reject) {
-        db.connect(function(err) {
-        if (err)
-            reject (err);            
-            db.query(sql, function (err, result, fields) {
-                if (err)  
-                    reject (err); // failure due to db error
-                resolve(result); // success
-            });
+        db.all(sql, [],  (err, rows) => {
+            if (err)
+                reject (err); 
+            resolve(result); // success
         });            
-    })    
+    })
+    .then(function(res) {
+        return res;
+    })
     .catch(err => {
-        const mysqlErrorList = Object.keys(HttpStatusCodes);
-        // convert mysql errors which are in the mysqlErrorList list to http status code
-        err.status = mysqlErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
+        const ErrorList = Object.keys(HttpStatusCodes);
+        // convert mysql errors which are in the ErrorList list to http status code
+        err.status = ErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
         return err;
     });
 }
 
 const HttpStatusCodes = Object.freeze({
-    ER_TRUNCATED_WRONG_VALUE_FOR_FIELD: 422,
-    ER_DUP_ENTRY: 409,
+    SQLITE_CONSTRAINT: 409,
 });
 
 module.exports = {

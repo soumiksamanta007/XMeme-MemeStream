@@ -174,6 +174,7 @@ app.get('/memes', async (_, res) => {
 app.post('/memes', async (req, res, next) => {
     console.log('New Data received: ', req.body);
     var result = await memes.postMeme(req.body);
+    console.log(result);
     if('errno' in result)
         if(result['status'])
             res.status(result.status).send(result);
@@ -316,6 +317,8 @@ app.listen(PORT, '0.0.0.0', () => {
 
 
 /*USAGE*/
+// curl 'http://127.0.0.1:8081/memes' 
+
 // curl --location --request POST 'http://127.0.0.1:8081/memes' \
 // --header 'Content-Type: application/json' \
 // --data-raw '{
