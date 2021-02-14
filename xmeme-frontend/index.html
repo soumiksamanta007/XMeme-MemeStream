@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>XMeme - Meme Stream</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div id="container-body">
+            <ul id="top-bar" style="top:0">
+                <li id="projectName">XMeme</li>
+                <li id="pageTitle">Meme Stream</li>
+            </ul>
+            <div class="split top" >
+                <div class="centered">                
+                    <form id="memePostForm" class="grid-container">
+                        <label id="name-label" class="formLabel" for="full_name">Name</label>
+                        <input id="full_name" type="text" name="fullname" placeholder="Enter your full name" required>
+                        <label id="caption-label" class="formLabel" for="meme_caption">Caption</label>
+                        <input id="meme_caption" type="text" name="memecaption" placeholder="Be Creative with the caption" required>
+                        <label id="url-label" class="formLabel" for="meme_url">Meme URL</label>
+                        <input id="meme_url" type="url" name="memeurl" placeholder="Enter URL of your meme here" required>
+                        <input id="submitbutton" type="submit" onclick="postMeme()" value="Submit">
+                    </form>
+                </div>
+            </div>
+            <div class="split bottom" id="container">
+            </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="memePatchForm" class="grid-container">
+                    <label id="name-label-patch" class="formLabel-patch" for="name">Name</label>
+                    <input id="full_name-patch" type="text" name="name" disabled>
+                    <label id="caption-label-patch" class="formLabel-patch" for="caption">Caption</label>
+                    <input id="meme_caption-patch" type="text" name="caption" placeholder="Enter new caption" required>
+                    <label id="url-label-patch" class="formLabel-patch" for="url">Meme URL</label>
+                    <input id="meme_url-patch" type="url" name="url" placeholder="Enter new URL of meme here" required>
+                    <input id="update_button-patch" type="submit" onclick="patchMeme()" value="Update">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

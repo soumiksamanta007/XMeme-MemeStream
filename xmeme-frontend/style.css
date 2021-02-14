@@ -1,0 +1,360 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-image: url('./assets/background.jpg');
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+#top-bar {
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  list-style-type: none;
+  background-color: rgba(0,0,0,0.85);
+  box-shadow:0 4px 10px 0 rgba(0,0,0,0.5),0 4px 10px 0 rgba(0,0,0,0.6);
+}
+#projectName {
+  display: block;
+  float: left;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: larger;
+  font-weight: bolder;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(192, 209, 245);
+}
+#pageTitle {
+  display: block;
+  /* float: center; */
+  padding: 12px 16px;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bolder;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: palegoldenrod;
+}
+.formLabel {
+  color: cornsilk;
+  font-size: larger;
+  font-style: italic;
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 4px 20px;
+}
+input [type=text] [type=url]{
+  padding: 5px 10px;
+  margin: 0px 0px;
+  border-radius: 5px;
+}
+
+#name-label {
+  grid-area: label1;
+}
+#caption-label {
+  grid-area: label2;
+}
+#url-label {
+  grid-area: label3;
+}
+#full_name {
+  grid-area: input1;
+}
+#caption {
+  grid-area: input2;
+}
+#meme_url {
+  grid-area: input3;
+}
+#submitbutton {
+  background-color: #a15fdf;
+  border: none;
+  width: 100px;
+  border-radius: 5px 5px 5px 5px;
+  color: rgb(255, 255, 255);
+  font-size: large;
+  padding: 6px 16px;
+  text-decoration: solid;
+  margin: 0px 0px;
+  cursor: pointer;
+  justify-self: center;
+  grid-area: button1;
+}
+#submitbutton:hover {
+  background-color: #ce99ff;
+}
+
+#memePostForm {
+  display: grid;
+  grid-template-columns: 1.2fr 3fr;
+  grid-template-rows: 0.1fr 0.1fr 0.1fr 0.2fr;
+  grid-template-areas:
+    'label1 input1'
+    'label2 input2'
+    'label3 input3'
+    'button1 button1';
+  grid-gap: 10px 5px;
+  justify-content: center;
+}
+
+.split {    
+  width: 80%;
+  justify-content: center;
+  position: fixed;
+  margin-left:8%;
+  margin-right:8%;
+  z-index: 0;
+}
+.top {
+  top: 8.3%;
+  height: 33.7%;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0, 0.8);
+}
+
+.bottom {
+  bottom: 0;
+  height: 58%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-content: flex-start;
+  overflow: scroll;
+  background-color: burlywood;
+  background-image: url('./assets/top_background.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  
+}
+
+.memeCard {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: navy;
+  border-radius: 0px;
+  margin: 30px 20px 10px 20px;
+  padding: 10px 10px 0px 10px;
+  background-color: #fffaf0;
+  box-shadow:0 2px 10px 0 rgba(0,0,0,0.4),0 2px 20px 0 rgba(0,0,0,0.5);
+}
+
+.memeCard:hover {
+  box-shadow:0 4px 10px 0 rgba(0,0,0,0.7),0 4px 20px 0 rgba(0,0,0,0.8);
+}
+
+.memeAuthorNameandButton {
+    display: flex;
+    justify-content: space-between;
+}
+
+.memeImage {
+  width: 250px;
+  margin: 20px 0px 5px 0px;
+  border-radius:4px;
+}
+
+.editbutton {
+  color: blueviolet;
+  border: none;
+  background-color: floralwhite;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  color: black;
+  background-color: #fefefe;
+  margin: 10% auto; /* 10% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.formLabel-patch {
+  color: rgb(98, 131, 194);
+  font-size: larger;
+  font-style: italic;
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 4px 20px;
+}
+
+#name-label-patch {
+  grid-area: label1;
+}
+#caption-label-patch {
+  grid-area: label2;
+}
+#url-label-patch {
+  grid-area: label3;
+}
+#full_name-patch {
+  grid-area: input1;
+}
+#caption-patch {
+  grid-area: input2;
+}
+#meme_url-patch {
+  grid-area: input3;
+}
+#update_button-patch {
+  background-color: #a15fdf;
+  border: none;
+  width: 100px;
+  border-radius: 5px 5px 5px 5px;
+  color: rgb(255, 255, 255);
+  font-size: large;
+  padding: 6px 16px;
+  text-decoration: solid;
+  margin: 0px 0px;
+  cursor: pointer;
+  justify-self: center;
+  grid-area: button1;
+}
+#update_button:hover {
+  background-color: #ce99ff;
+}
+
+#memePatchForm {
+  display: grid;
+  grid-template-columns: 1.2fr 3fr;
+  grid-template-rows: 0.1fr 0.1fr 0.1fr 0.2fr;
+  grid-template-areas:
+    'label1 input1'
+    'label2 input2'
+    'label3 input3'
+    'button1 button1';
+  grid-gap: 15px 5px
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    background-image: url('./assets/background_small.png');
+  }
+  #top-bar {
+    height: 8%;
+    position: fixed;
+    overflow: hidden;
+  }
+  #projectName {
+    font-size: large;
+  }
+  #pageTitle {
+    font-size: larger;
+    margin-right: 20%;
+  }
+  .formLabel {
+    font-size: large;
+  }
+  input [type=text] [type=url]{
+    font-size: small;
+  }
+  #submitbutton {
+    margin-top: 15px;
+  }
+  #memePostForm {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-template-areas:
+      'label1'
+      'input1'
+      'label2'
+      'input2'
+      'label3'
+      'input3'
+      'button1';
+    grid-gap: 5px 10px;
+  }
+  
+  .split {    
+    width: 80%;
+    justify-content: center;
+    position: fixed;
+    margin-left:10%;
+    margin-right:8%;
+    z-index: 0;
+  }
+  .top {
+    top: 6%;
+    height: 44%;
+    background-color: rgb(0,0,0);   /*Fallback color*/
+    background-color: rgba(0,0,0, 0.8);
+  }
+  .bottom {
+    bottom: 0;
+    height: 50%;
+    background-image: url('./assets/top_background_small.jpg');
+  }
+
+  .memeCard {
+    width: 80%;
+  }
+  .memeImage {
+    width: 100%;
+  }
+
+  .modal-content {
+    width: 80%;
+    margin: 50% auto;  /*10% from the top and centered*/
+  }
+  #memePatchForm {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-template-areas:
+      'label1'
+      'input1'
+      'label2'
+      'input2'
+      'label3'
+      'input3'
+      'button1'
+      'button1';
+    grid-gap: 15px 5px;
+    justify-content: center;
+  }
+  .formLabel-patch {
+    font-size: large;
+  }
+
+  #update_button-patch {
+    margin-top: 20px;
+    width: 50%;
+  }
+}

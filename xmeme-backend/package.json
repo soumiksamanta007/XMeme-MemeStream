@@ -1,0 +1,24 @@
+{
+  "name": "meme-stream-backend",
+  "version": "1.0.0",
+  "description": "A backend for the meme-stream web page",
+  "main": "index.js",
+  "engines": {
+    "node": "15.8.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Soumik Samanta",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "swagger-jsdoc": "^6.0.2",
+    "swagger-ui-express": "^4.1.6",
+    "uuid": "^8.3.2",
+    "validator": "^13.5.2"
+  }
+}

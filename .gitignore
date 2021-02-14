@@ -1,0 +1,4 @@
+xmeme-backend/node_modules
+xmeme-backend/.env
+xmeme-backend/npm-debug.log
+test_server.sh
