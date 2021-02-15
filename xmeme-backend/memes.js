@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3');
 const dotenv = require('dotenv');
 const { v4: uuidv4 } = require('uuid');
+require ('./db/db.js');
 
 dotenv.config();
 
@@ -28,7 +29,6 @@ async function getMemes() {
 
 async function postMeme(entry) {
     var id = uuidv4();
-    console.log(entry);
     const sql = `INSERT INTO memes (id, dop, name, caption, url) VALUES ( '${id}', datetime('now'), '${entry['name']}', '${entry['caption']}', '${entry['url']}')`;
     return new Promise(function(resolve, reject) {
         db.all(sql, [],  (err, rows) => {

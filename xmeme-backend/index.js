@@ -115,7 +115,7 @@ app.use(
  *              description: Internal Server Error
  */
 
-app.get('/memes', async (_, res) => {
+app.get('/memes', cors(), async (_, res) => {
     result = await memes.getMemes();
     if('errno' in result)
         if(result['status'])
@@ -174,7 +174,6 @@ app.get('/memes', async (_, res) => {
 app.post('/memes', async (req, res, next) => {
     console.log('New Data received: ', req.body);
     var result = await memes.postMeme(req.body);
-    console.log(result);
     if('errno' in result)
         if(result['status'])
             res.status(result.status).send(result);

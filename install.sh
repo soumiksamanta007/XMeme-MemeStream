@@ -9,5 +9,8 @@ export DEBIAN_FRONTEND=noninteractive
 curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
+# Install docker
+sudo snap install docker
+
 # Add configurations
 sudo ufw allow 8081

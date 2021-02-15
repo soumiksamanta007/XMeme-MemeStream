@@ -1,5 +1,5 @@
 const URL = "https://xmeme-memestream-app.herokuapp.com/memes";
-// const URL = "https://127.0.0.1:8081/memes";
+//const URL = "https://127.0.0.1:8081/memes";
 
 var memes = [];
 var editMemeID;
@@ -65,7 +65,7 @@ function getMemes() {
             loadMemes();
         }
     };
-    xhttp.open("GET", URL, true);
+    xhttp.open("GET", URL, false);
     xhttp.send();
 }
 
@@ -84,26 +84,21 @@ function postMeme() {
 
     // validate inputs
     if (name !== '' && caption !== '' && isValidURL(memeUrl)) {
-        // post the meme entry to the backend database
+        // add the meme to the meme list in frontend and post it to backend for later retrieval
         var xhttp = new XMLHttpRequest();
         
-        xhttp.onreadystatechange = function() {
-            console.log(this.status)
-            if (this.readyState == 4 && this.status == 201) {
-                console.log(this.responseText);
-                console.log(xhttp.status);
-                alert("Your Meme has been added! 😀");
-            }
-            else if(this.status === 0)
-                alert("Caption or Meme already exists! 😐");
-            else
-                alert("Failed to add meme! 🙁");
-        };
-        xhttp.open("POST", URL, true);
-        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.open("POST", URL, false);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhttp.send(JSON.stringify({"name": name,
                                 "url": memeUrl,
                                 "caption": caption}));
+        
+        if(xhttp.status === 201)
+            alert("Your Meme has been added! 😀");
+        else if(xhttp.status === 409)
+            alert("Caption or Meme already exists! 😐");
+        else
+            alert("Failed to add meme! 🙁");
     }
 }
 
@@ -145,18 +140,17 @@ function patchMeme() {
         
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 204) {
-                alert("Meme has been modified! 😊");
+                console.log(this.status);
             }
-            console.log(this.status);
         };
-        xhttp.open("PATCH", URL+"/"+editMemeID, true);
-        console.log(URL+"/"+editMemeID);
+        xhttp.open("PATCH", URL+"/"+editMemeID, false);
         xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhttp.send(JSON.stringify({"caption": caption,
                                     "url": memeUrl}));
+
         if(xhttp.status === 204)
-            alert("Meme has been modified! 😊");
-        else if(xhttp.status === 0)
+            alert("Your Meme has been modified! 😊");
+        else if(xhttp.status === 409)
             alert("Caption or Meme already exists! 😐");
         else
             alert("Failed to update meme! 🙁");
