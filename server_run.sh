@@ -4,6 +4,8 @@
 cd ./xmeme-backend
 
 # install dependencies
+sudo npm install sqlite3
+sudo npm install express
 sudo npm install
 
 # Setup DB or any other environment variables

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# Sleep for 60 seconds
-sleep 60
+# Sleep for 120 seconds
+sleep 120
